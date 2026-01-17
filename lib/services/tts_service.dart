@@ -18,15 +18,15 @@ class TtsService {
     await _flutterTts.setLanguage("en-IN"); // Indian English
     await _flutterTts.setPitch(1.0);
     await _flutterTts.setSpeechRate(0.5);
+    await _flutterTts.awaitSpeakCompletion(false); // Ensure we don't wait for speech to finish
 
     try {
-      dynamic voices = await _flutterTts.getVoices();
+      dynamic voices = await _flutterTts.getVoices;
       if (voices is List) {
         for (var voice in voices) {
           String name = voice['name'].toString().toLowerCase();
           String locale = voice['locale'].toString().toLowerCase();
           
-          // Prioritize Indian English voices
           if (locale.contains('en_in') || 
               name.contains('india') || 
               name.contains('hindi')) {
@@ -42,8 +42,8 @@ class TtsService {
 
   Future<void> speak(String text) async {
     if (text.isNotEmpty) {
-      await stop(); // Interrupt current speech
-      await _flutterTts.speak(text);
+      _flutterTts.stop(); 
+      _flutterTts.speak(text);
     }
   }
 

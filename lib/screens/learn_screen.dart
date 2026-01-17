@@ -18,12 +18,15 @@ class LearnScreen extends StatelessWidget {
         appBar: AppBar(
           title: const SpeakableText('Let\'s Learn!'),
           bottom: const TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
+            indicatorColor: Colors.white,
+            indicatorWeight: 3,
             tabs: [
               Tab(icon: Icon(Icons.abc), text: 'Alphabet'),
-              Tab(icon: Icon(Icons.format_list_numbered), text: 'Numbers'),
-              Tab(icon: Icon(Icons.grid_on), text: 'Tables'),
+              Tab(icon: Icon(Icons.numbers), text: 'Numbers'),
+              Tab(icon: Icon(Icons.grid_view), text: 'Tables'), // Changed icon
             ],
-            indicatorColor: Colors.white,
           ),
         ),
         body: TabBarView(
@@ -48,18 +51,11 @@ class LearnScreen extends StatelessWidget {
       itemCount: items.length,
       itemBuilder: (context, index) {
         return Card(
-          color: color.withOpacity(0.8),
+          color: color.withAlpha(204),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: InkWell(
             onTap: () {
                TtsService().speak(items[index]);
-               ScaffoldMessenger.of(context).showSnackBar(
-                 SnackBar(
-                   content: Text("Selected: ${items[index]}", style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
-                   duration: Duration(milliseconds: 500),
-                   backgroundColor: color,
-                 )
-               );
             },
             child: Center(
               child: Text(
@@ -88,7 +84,7 @@ class LearnScreen extends StatelessWidget {
       itemCount: items.length,
       itemBuilder: (context, index) {
         return Card(
-          color: color.withOpacity(0.8),
+          color: color.withAlpha(204),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: InkWell(
             onTap: () {

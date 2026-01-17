@@ -202,9 +202,9 @@ class _PlayScreenState extends State<PlayScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withAlpha(25),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.2)),
+        border: Border.all(color: Colors.white.withAlpha(51)),
       ),
       child: Row(
         children: [
@@ -235,14 +235,14 @@ class _PlayScreenState extends State<PlayScreen> {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withAlpha(76),
               blurRadius: 5,
               offset: const Offset(2, 4),
             )
           ],
           border: card.isMatched 
               ? Border.all(color: Colors.green, width: 3) 
-              : Border.all(color: Colors.white.withOpacity(0.1)),
+              : Border.all(color: Colors.white.withAlpha(25)),
         ),
         child: card.isFlipped || card.isMatched
             ? Center(
