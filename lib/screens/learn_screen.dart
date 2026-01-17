@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:child_game/services/tts_service.dart';
 import 'package:child_game/widgets/speakable_text.dart';
+import 'package:child_game/utils/number_helper.dart';
 
 class LearnScreen extends StatelessWidget {
   final List<String> alphabets = List.generate(26, (index) => String.fromCharCode(index + 65));
@@ -55,7 +56,12 @@ class LearnScreen extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           child: InkWell(
             onTap: () {
-               TtsService().speak(items[index]);
+               // Check if item is a number to speak it as words
+               if (int.tryParse(items[index]) != null) {
+                 TtsService().speak(intToWords(int.parse(items[index])));
+               } else {
+                 TtsService().speak(items[index]);
+               }
             },
             child: Center(
               child: Text(

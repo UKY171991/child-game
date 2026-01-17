@@ -1,0 +1,20 @@
+App Details for Store Upload
+============================
+
+Package Name (Application ID): com.childgame.child_game
+Current Version: 1.0.0
+Build Number: 1
+
+Signing Information (Keep Secure!)
+----------------------------------
+Keystore File: android/app/upload-keystore.jks
+Key Property File: android/key.properties
+Key Alias: upload
+Key Password: password123
+Store Password: password123
+
+To build the APK manually:
+flutter build apk --release
+
+Output APK location:
+build/app/outputs/flutter-apk/app-release.apk

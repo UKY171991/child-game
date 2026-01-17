@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:child_game/widgets/custom_button.dart';
 import 'package:child_game/widgets/speakable_text.dart';
 import 'package:child_game/theme/app_theme.dart';
+import 'package:child_game/widgets/ad_banner.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -39,9 +40,27 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/play');
               },
             ),
+            const SizedBox(height: 30),
+            CustomButton(
+              label: 'FALLING TEXT',
+              icon: Icons.text_fields,
+              color: AppTheme.secondaryColor,
+              onTap: () {
+                Navigator.pushNamed(context, '/falling_text');
+              },
+            ),
+            CustomButton(
+              label: 'BALLOON POP',
+              icon: Icons.bubble_chart,
+              color: AppTheme.primaryColor,
+              onTap: () {
+                Navigator.pushNamed(context, '/balloon_pop');
+              },
+            ),
           ],
         ),
       ),
+      bottomNavigationBar: const AdBanner(),
     );
   }
 }
