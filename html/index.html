@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo's Learn & Play - Kids Learning Game</title>
+    <meta name="description"
+        content="A fun and educational matching game for kids to learn alphabets, animals, and fruits.">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF6B6B">
+    <link rel="icon" href="icon.png">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&family=Bubblegum+Sans&display=swap"
+        rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app" class="d-flex flex-column min-vh-100">
+        <!-- Header -->
+        <header class="py-4 text-center animate__animated animate__fadeInDown">
+            <h1 class="display-4 fw-bold text-gradient">Leo's Learn & Play</h1>
+            <p class="lead text-muted">Fun learning for little explorers!</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow-1 container d-flex align-items-center justify-content-center">
+
+            <!-- Dashboard Selection -->
+            <div id="home-screen" class="text-center w-100">
+                
+                <!-- Learn Section -->
+                <div class="mb-5 animate__animated animate__fadeIn">
+                    <h2 class="section-title mb-4">📚 Let's Learn!</h2>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-6 col-md-3">
+                            <button class="category-card btn-alphabet" onclick="game.startLearn('alphabet')">
+                                <span class="emoji">🔤</span>
+                                <span class="label">Alphabet</span>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="category-card btn-hindi" onclick="game.startLearn('hindi')">
+                                <span class="emoji">🇮🇳</span>
+                                <span class="label">Hindi</span>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="category-card btn-numbers" onclick="game.startLearn('numbers')">
+                                <span class="emoji">1️⃣2️⃣3️⃣</span>
+                                <span class="label">Numbers</span>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="category-card btn-tables" onclick="game.startLearn('tables')">
+                                <span class="emoji">✖️</span>
+                                <span class="label">Tables</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Games Section -->
+                <div class="animate__animated animate__fadeIn animate__delay-1s">
+                    <h2 class="section-title mb-4">🎮 Let's Play!</h2>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-6 col-md-3">
+                            <button class="category-card btn-matching" onclick="game.showMatchingMenu()">
+                                <span class="emoji">🧩</span>
+                                <span class="label">Matching</span>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="category-card btn-falling" onclick="game.startFallingText()">
+                                <span class="emoji">🔡</span>
+                                <span class="label">Falling Text</span>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="category-card btn-balloon" onclick="game.startBalloonPop()">
+                                <span class="emoji">🎈</span>
+                                <span class="label">Balloon Pop</span>
+                            </button>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <button class="category-card btn-shadow" onclick="game.startShadowMatch()">
+                                <span class="emoji">👥</span>
+                                <span class="label">Shadow Match</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matching Menu (Hidden initially) -->
+            <div id="matching-menu" class="d-none text-center w-100">
+                <h2 class="mb-5">Choose Matching Category</h2>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-12 col-md-4">
+                        <button class="category-card btn-alphabet" onclick="game.startMatching('alphabet')">
+                            <span class="emoji">🔤</span> Alphabet
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <button class="category-card btn-animals" onclick="game.startMatching('animals')">
+                            <span class="emoji">🦁</span> Animals
+                        </button>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <button class="category-card btn-fruits" onclick="game.startMatching('fruits')">
+                            <span class="emoji">🍎</span> Fruits
+                        </button>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <button class="btn btn-secondary rounded-pill px-4" onclick="game.showHomeFromMenu()">Back</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="game-screen" class="d-none w-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <button class="btn btn-back" onclick="game.showHome()">
+                        <span class="me-2">🏠</span> Back
+                    </button>
+                    <h2 id="category-title" class="mb-0 text-white fw-bold">Alphabets</h2>
+                    <div class="score-badge animate__animated animate__pulse animate__infinite">
+                        Score: <span id="score">0</span>
+                    </div>
+                </div>
+
+                <div id="game-grid" class="game-grid">
+                    <!-- Tiles will be injected here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="py-3 text-center text-muted">
+            <p>&copy; 2026 Child Game. Made with ❤️ for Kids.</p>
+            <p><a href="privacy.html" class="text-decoration-none text-muted" style="font-size: 0.9rem;">Privacy
+                    Policy</a></p>
+        </footer>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="modal fade" id="celebrationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center py-5 rounded-5 border-0 shadow-lg category-card">
+                <div class="modal-body">
+                    <h2 class="display-3 mb-4">🎉 AMAZING! 🎉</h2>
+                    <p class="h4 mb-4">You found them all!</p>
+                    <button class="btn btn-lg btn-primary rounded-pill px-5 py-3" onclick="game.showHome()"
+                        data-bs-dismiss="modal">
+                        Play Again!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="game_data.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>

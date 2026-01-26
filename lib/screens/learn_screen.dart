@@ -3,6 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:child_game/services/tts_service.dart';
 import 'package:child_game/widgets/speakable_text.dart';
 import 'package:child_game/utils/number_helper.dart';
+import 'package:child_game/utils/alphabet_data.dart';
+import 'package:child_game/utils/hindi_alphabet_data.dart';
 
 class LearnScreen extends StatelessWidget {
   final List<String> alphabets = List.generate(26, (index) => String.fromCharCode(index + 65));
@@ -14,30 +16,152 @@ class LearnScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
-        appBar: AppBar(
-          title: const SpeakableText('Let\'s Learn!'),
-          bottom: const TabBar(
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white70,
-            indicatorColor: Colors.white,
-            indicatorWeight: 3,
-            tabs: [
-              Tab(icon: Icon(Icons.abc), text: 'Alphabet'),
-              Tab(icon: Icon(Icons.numbers), text: 'Numbers'),
-              Tab(icon: Icon(Icons.grid_view), text: 'Tables'), // Changed icon
-            ],
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(100.0), // Reduced height
+          child: AppBar(
+            title: const SpeakableText('Let\'s Learn!'),
+            bottom: const TabBar(
+              isScrollable: true,
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.white70,
+              indicatorColor: Colors.white,
+              indicatorWeight: 3,
+              tabs: [
+                Tab(icon: Icon(Icons.abc), text: 'Alphabet'),
+                Tab(icon: Icon(Icons.language), text: 'Hindi'),
+                Tab(icon: Icon(Icons.numbers), text: 'Numbers'),
+                Tab(icon: Icon(Icons.grid_view), text: 'Tables'),
+              ],
+            ),
           ),
         ),
         body: TabBarView(
           children: [
-            _buildGrid(alphabets, Colors.orange),
+            _buildAlphabetGrid(),
+            _buildHindiGrid(),
             _buildGrid(numberList, Colors.purple),
             _buildTablesGrid(context, tableList, Colors.blue),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildAlphabetGrid() {
+    return GridView.builder(
+      padding: const EdgeInsets.all(20),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        childAspectRatio: 0.85,
+      ),
+      itemCount: alphabetData.length,
+      itemBuilder: (context, index) {
+        final item = alphabetData[index];
+        return Card(
+          color: item.color.withOpacity(0.9),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: InkWell(
+            onTap: () {
+               TtsService().speak("${item.letter} for ${item.word}");
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  item.letter,
+                  style: const TextStyle(
+                    fontSize: 50,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    item.icon,
+                    style: const TextStyle(fontSize: 60),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    item.word,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ).animate().scale(delay: (20 * index).ms).fadeIn();
+      },
+    );
+  }
+
+  Widget _buildHindiGrid() {
+    return GridView.builder(
+      padding: const EdgeInsets.all(20),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        childAspectRatio: 0.85,
+      ),
+      itemCount: hindiAlphabetData.length,
+      itemBuilder: (context, index) {
+        final item = hindiAlphabetData[index];
+        return Card(
+          color: item.color.withOpacity(0.9),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: InkWell(
+            onTap: () {
+               // Use Hindi language code
+               if (item.audioText == item.letter || item.audioText!.length <= 1) { // For letters like अ, आ, ङ, ञ, ण where word might be same or empty
+                  TtsService().speak(item.letter, language: "hi-IN"); // Speak letter directly which usually sounds correct for these
+               } else {
+                  TtsService().speak("${item.letter} से ${item.audioText}", language: "hi-IN");
+               }
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  item.letter,
+                  style: const TextStyle(
+                    fontSize: 50,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    item.icon,
+                    style: const TextStyle(fontSize: 60),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    item.word,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ).animate().scale(delay: (20 * index).ms).fadeIn();
+      },
     );
   }
 
@@ -64,12 +188,15 @@ class LearnScreen extends StatelessWidget {
                }
             },
             child: Center(
-              child: Text(
-                items[index],
-                style: const TextStyle(
-                  fontSize: 60,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  items[index],
+                  style: const TextStyle(
+                    fontSize: 60,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -138,13 +265,13 @@ class LearnScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Expanded(
                 child: ListView.separated(
-                  itemCount: 10,
+                  itemCount: 20,
                   separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) {
                     int multiplier = index + 1;
                     int result = number * multiplier;
                     String text = "$number x $multiplier = $result";
-                    String speakText = "$number times $multiplier is $result";
+                    String speakText = "$number $multiplier ja $result";
 
                     return ListTile(
                       title: Text(

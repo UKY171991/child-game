@@ -7,22 +7,28 @@ import 'package:child_game/widgets/ad_banner.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  void _openPrivacyPolicy(BuildContext context) {
+    Navigator.pushNamed(context, '/privacy');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const SpeakableText('Fun Kids App'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.privacy_tip),
+            tooltip: 'Privacy Policy',
+            onPressed: () => _openPrivacyPolicy(context),
+          ),
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.star,
-              size: 100,
-              color: AppTheme.primaryColor,
-            ),
-            const SizedBox(height: 40),
+
             CustomButton(
               label: 'LEARN',
               icon: Icons.school,
@@ -33,8 +39,8 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             CustomButton(
-              label: 'PLAY',
-              icon: Icons.games,
+              label: 'MATCHING',
+              icon: Icons.extension, // Puzzle piece fits matching better than controller
               color: AppTheme.accentColor,
               onTap: () {
                 Navigator.pushNamed(context, '/play');
@@ -49,12 +55,22 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/falling_text');
               },
             ),
+            const SizedBox(height: 30),
             CustomButton(
               label: 'BALLOON POP',
               icon: Icons.bubble_chart,
               color: AppTheme.primaryColor,
               onTap: () {
                 Navigator.pushNamed(context, '/balloon_pop');
+              },
+            ),
+            const SizedBox(height: 30),
+            CustomButton(
+              label: 'GUESS SHADOW',
+              icon: Icons.question_mark,
+              color: Colors.orange,
+              onTap: () {
+                Navigator.pushNamed(context, '/shadow_match');
               },
             ),
           ],

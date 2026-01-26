@@ -2,8 +2,8 @@ App Details for Store Upload
 ============================
 
 Package Name (Application ID): com.childgame.child_game
-Current Version: 1.0.0
-Build Number: 1
+Current Version: 1.0.1
+Build Number: 2
 
 Signing Information (Keep Secure!)
 ----------------------------------

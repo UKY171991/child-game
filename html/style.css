@@ -1,0 +1,203 @@
+:root {
+    --primary-color: #FF6B6B;
+    --secondary-color: #4ECDC4;
+    --accent-color: #FFE66D;
+    --alphabet-color: #FF8066;
+    --animals-color: #845EC2;
+    --fruits-color: #FFC75F;
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-gradient);
+    color: #2D3436;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+.label {
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, var(--primary-color), var(--animals-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Category Cards */
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border: none;
+    border-radius: 30px;
+    padding: 20px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.category-card .emoji {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.category-card .label {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-alphabet {
+    background: var(--alphabet-color);
+}
+
+.btn-animals {
+    background: var(--animals-color);
+}
+
+.btn-fruits {
+    background: var(--fruits-color);
+}
+
+.btn-hindi {
+    background: #FF9F1C;
+}
+
+.btn-numbers {
+    background: #4ECDC4;
+}
+
+.btn-tables {
+    background: #1A535C;
+}
+
+.btn-matching {
+    background: #FF6B6B;
+}
+
+.btn-falling {
+    background: #45B7D1;
+}
+
+.btn-balloon {
+    background: #FFBE0B;
+}
+
+.btn-shadow {
+    background: #555555;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+/* Game Grid */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    perspective: 1000px;
+}
+
+@media (min-width: 768px) {
+    .game-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+/* Game Tiles */
+.tile {
+    aspect-ratio: 1/1;
+    background: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    user-select: none;
+}
+
+.tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tile .tile-icon {
+    font-size: 3rem;
+}
+
+.tile .tile-text {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+/* Animations */
+.score-badge {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.25rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    border: 2px solid white;
+    color: white;
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-back:hover {
+    background: white;
+    color: var(--primary-color);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+#game-screen {
+    background: linear-gradient(135deg, var(--secondary-color), var(--animals-color));
+    padding: 20px;
+    border-radius: 40px;
+    min-height: 70vh;
+}

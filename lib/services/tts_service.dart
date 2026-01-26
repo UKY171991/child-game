@@ -40,8 +40,14 @@ class TtsService {
     }
   }
 
-  Future<void> speak(String text) async {
+  Future<void> speak(String text, {String? language}) async {
     if (text.isNotEmpty) {
+      if (language != null) {
+        await _flutterTts.setLanguage(language);
+      } else {
+        // Default to Indian English if no specific language requested, or keep current
+         await _flutterTts.setLanguage("en-IN");
+      }
       _flutterTts.stop(); 
       _flutterTts.speak(text);
     }

@@ -5,6 +5,8 @@ import 'package:child_game/screens/learn_screen.dart';
 import 'package:child_game/screens/play_screen.dart';
 import 'package:child_game/screens/falling_text_game.dart';
 import 'package:child_game/screens/balloon_pop_screen.dart';
+import 'package:child_game/screens/shadow_match_screen.dart';
+import 'package:child_game/screens/privacy_policy_screen.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -30,6 +32,8 @@ class ChildGameApp extends StatelessWidget {
         '/play': (context) => const PlayScreen(),
         '/falling_text': (context) => const FallingTextGame(),
         '/balloon_pop': (context) => const BalloonPopScreen(),
+        '/shadow_match': (context) => const ShadowMatchScreen(),
+        '/privacy': (context) => const PrivacyPolicyScreen(),
       },
     );
   }
